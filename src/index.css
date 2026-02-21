@@ -1,0 +1,121 @@
+@import "tailwindcss";
+@config "../tailwind.config.js";
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-light text-dark font-sans transition-colors duration-300;
+  }
+}
+
+@keyframes toast-progress {
+  from { transform: scaleX(1); }
+  to { transform: scaleX(0); }
+}
+
+.toast-success,
+.toast-error {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+.toast-success {
+  background: #16a34a;
+  color: #fff;
+}
+
+.toast-error {
+  background: #ef4444;
+  color: #fff;
+}
+
+.toast-success::after,
+.toast-error::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 4px;
+  width: 100%;
+  transform-origin: left;
+  animation: toast-progress var(--progress-duration, 3000ms) linear forwards;
+}
+
+.toast-success::after { background: #22c55e; }
+.toast-error::after { background: #f87171; }
+
+@keyframes mesh-move {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(20px, -10px) scale(1.05); }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in-right {
+  from { opacity: 0; transform: translateX(24px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fade-in-left {
+  from { opacity: 0; transform: translateX(-24px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.word-animate {
+  display: inline-block;
+  animation: fade-in-up 600ms both;
+  animation-delay: var(--delay, 0ms);
+}
+
+.animated-gradient-text {
+  background-image: linear-gradient(90deg, #F59E0B, #FF6B6B, #4ECDC4, #F59E0B);
+  background-size: 250% 250%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradient-shift 8s ease-in-out infinite;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes cart-bounce {
+  0%, 60%, 100% { transform: translateY(0); }
+  10% { transform: translateY(-9px); }
+  20% { transform: translateY(0); }
+  30% { transform: translateY(-5px); }
+  40% { transform: translateY(0); }
+}
+
+.cart-bounce {
+  display: inline-block;
+  animation: cart-bounce 2s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes heart-pop-anim {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+.heart-pop {
+  animation: heart-pop-anim 350ms ease;
+}
