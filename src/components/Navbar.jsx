@@ -9,7 +9,7 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-md shadow-sm transition-colors duration-300">
-      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+      <div className="container py-4 flex justify-between items-center">
         {/* Logo */}
         <Link to="/" className="text-2xl font-bold text-primary tracking-tighter flex items-center gap-2">
           StepUp <span className="text-dark">Studio</span>
@@ -48,11 +48,29 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-white border-t border-gray-100 absolute w-full">
-          <div className="flex flex-col p-4 gap-4">
-            <Link to="/" className="text-dark hover:text-primary" onClick={() => setIsMenuOpen(false)}>Home</Link>
-            <a href="#products" className="text-dark hover:text-primary" onClick={() => setIsMenuOpen(false)}>Collection</a>
-            <a href="#" className="text-dark hover:text-primary" onClick={() => setIsMenuOpen(false)}>About</a>
+        <div className="md:hidden bg-white/95 backdrop-blur-xl border-t border-gray-100 absolute w-full shadow-xl rounded-b-2xl overflow-hidden transition-all animate-fade-in-down">
+          <div className="flex flex-col p-6 gap-6">
+            <Link 
+              to="/" 
+              className="text-dark hover:text-primary font-bold text-lg border-b border-gray-50 pb-2" 
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Home
+            </Link>
+            <a 
+              href="#products" 
+              className="text-dark hover:text-primary font-bold text-lg border-b border-gray-50 pb-2" 
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Collection
+            </a>
+            <a 
+              href="#" 
+              className="text-dark hover:text-primary font-bold text-lg pb-2" 
+              onClick={() => setIsMenuOpen(false)}
+            >
+              About
+            </a>
           </div>
         </div>
       )}

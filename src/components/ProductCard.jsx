@@ -23,10 +23,6 @@ const ProductCard = ({ product, onOpenModal, index = 0 }) => {
     <div
       ref={ref}
       className="group relative bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 hover:rotate-[0.25deg]"
-      style={{
-        animation: inView ? 'fade-in-up 600ms both' : 'none',
-        animationDelay: `${Math.min(index, 10) * 80}ms`,
-      }}
     >
       {/* Image */}
       <div className="relative aspect-square overflow-hidden bg-gray-100">

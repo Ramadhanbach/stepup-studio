@@ -95,13 +95,15 @@ const Home = () => {
       {/* Hero Section */}
       <section className="relative h-auto md:h-[calc(100vh-80px)] py-16 md:py-0 flex items-center bg-white overflow-hidden">
 
-        <div className="container mx-auto px-4 relative z-10 flex flex-col md:flex-row items-center">
-          <div className="w-full md:w-1/2 text-center md:text-left mb-10 md:mb-0">
-            <h2 className="word-animate text-primary font-bold text-xl mb-4 tracking-wider uppercase" style={{'--delay':'50ms'}}>New Collection 2026</h2>
-            <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold text-dark mb-6 leading-tight">
-              <span className="word-animate" style={{'--delay':'100ms'}}>Step</span>{' '}
-              <span className="word-animate" style={{'--delay':'200ms'}}>Into</span>{' '}
-              <span className="word-animate" style={{'--delay':'300ms'}}>Your</span>{' '}
+        <div className="container relative z-10 flex flex-col md:flex-row items-center">
+          <div className="w-full md:w-3/5 text-center md:text-left mb-8 md:mb-0">
+            <h2 className="word-animate text-primary font-bold text-lg sm:text-xl mb-3 tracking-wider uppercase" style={{'--delay':'50ms'}}>New Collection 2026</h2>
+            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-dark mb-4 sm:mb-6 leading-tight">
+              <span className="whitespace-nowrap">
+                <span className="word-animate" style={{'--delay':'100ms'}}>Step</span>{' '}
+                <span className="word-animate" style={{'--delay':'200ms'}}>Into</span>{' '}
+                <span className="word-animate" style={{'--delay':'300ms'}}>Your</span>
+              </span>
               <br />
               <span>
                 {'Confidence'.split('').map((ch, i) => (
@@ -119,20 +121,22 @@ const Home = () => {
               StepUp Studio is a modern shoe brand that combines comfort, style, and performance in every step. 
               We present the best collection for lifestyle, sport, and daily wear.
             </p>
-            <a 
-              href="#products" 
-              className="word-animate inline-flex items-center gap-2 leading-none bg-dark text-white px-8 py-4 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-lg hover:shadow-xl"
-              style={{'--delay':'800ms'}}
-              onClick={handleShopNowClick}
-            >
-              <span className="inline-flex items-center gap-2">
-                <span>Shop Now</span>
-                <ArrowDown className="w-5 h-5 shrink-0" />
-              </span>
-            </a>
+            <div>
+              <a 
+                href="#products" 
+                className="word-animate inline-flex items-center gap-2 leading-none bg-dark text-white px-8 py-4 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-lg hover:shadow-xl"
+                style={{'--delay':'800ms'}}
+                onClick={handleShopNowClick}
+              >
+                <span className="inline-flex items-center gap-2">
+                  <span>Shop Now</span>
+                  <ArrowDown className="w-5 h-5 shrink-0" />
+                </span>
+              </a>
+            </div>
           </div>
           
-           <div className="w-full md:w-1/2 relative">
+           <div className="w-full md:w-2/5 relative flex justify-center">
              <picture>
                <source type="image/webp" srcSet="/images/hero-shoe.webp" />
                <img 
@@ -141,7 +145,7 @@ const Home = () => {
                  loading="eager"
                  decoding="async"
                  fetchpriority="high"
-                 className="w-full max-w-md sm:max-w-lg mx-auto drop-shadow-2xl rotate-[-8deg] hover:rotate-0 transition-transform duration-700"
+                 className="w-[80%] sm:w-full max-w-md sm:max-w-lg drop-shadow-2xl rotate-[-8deg] hover:rotate-0 transition-transform duration-700"
                  ref={heroImgRef}
                  style={{ animation: heroVisible ? 'fade-in-right 800ms both' : 'none' }}
                />
@@ -154,17 +158,17 @@ const Home = () => {
 
       {/* Product Section */}
       <section id="products" className="py-20 bg-white scroll-mt-24">
-        <div className="container mx-auto px-4" ref={productsContainerRef} style={{ animation: productsVisible ? 'fade-in-up 700ms both' : 'none' }}>
+        <div className="container" ref={productsContainerRef}>
           
-          <div className="mb-12">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-              <div>
-                <h2 className="text-4xl font-bold text-dark">Our Collection</h2>
-                <div className="h-1 w-20 bg-dark rounded-full mt-1" />
+          <div className="mb-8 md:mb-12">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6">
+              <div className="text-center md:text-left w-full md:w-auto">
+                <h2 className="text-3xl sm:text-4xl font-bold text-dark">Our Collection</h2>
+                <div className="h-1 w-20 bg-dark rounded-full mt-1 mx-auto md:mx-0" />
               </div>
- 
-              <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
-                <div className="relative group">
+
+              <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+                <div className="relative group w-full sm:w-auto">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary transition-colors" size={20} />
                   <input 
                     type="text" 
@@ -238,10 +242,11 @@ const Home = () => {
               <div className="h-1 w-16 bg-dark rounded-full mt-1" />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" ref={benefitsRef}>
-              <div className="group relative rounded-2xl overflow-hidden shadow-xl transition-all duration-300 hover:scale-[1.03] hover:shadow-2xl" style={{ animation: benefitsVisible ? 'fade-in-left 700ms both' : 'none', animationDelay: '0ms', perspective: '1000px' }}>
-                <div className="relative w-full h-56 sm:h-64 transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
-                  <div className="absolute inset-0 [backface-visibility:hidden]">
-                    <picture>
+              {/* Card 1: Comfort */}
+              <div className="group relative rounded-2xl shadow-xl transition-all duration-300 hover:scale-[1.03] hover:shadow-2xl perspective-1000" style={{ animation: benefitsVisible ? 'fade-in-left 700ms both' : 'none', animationDelay: '0ms' }}>
+                <div className="relative w-full h-56 sm:h-64 transition-transform duration-500 preserve-3d group-hover:rotate-y-180 will-change-transform">
+                  <div className="absolute inset-0 backface-hidden rounded-2xl overflow-hidden bg-gray-200">
+                    <picture className="contents">
                       <source type="image/webp" srcSet="/images/priority-comfort.webp" />
                       <img
                         src="/images/priority-comfort.jpg"
@@ -249,16 +254,16 @@ const Home = () => {
                         loading="lazy"
                         decoding="async"
                         fetchpriority="low"
-                        className="w-full h-full object-cover transition-all duration-300 group-hover:brightness-125"
+                        className="w-full h-full object-cover transition-all duration-300 group-hover:brightness-125 backface-hidden"
                       />
                     </picture>
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent group-hover:from-black/10" />
-                    <div className="absolute left-4 bottom-4">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent group-hover:from-black/10 pointer-events-none" />
+                    <div className="absolute left-4 bottom-4 pointer-events-none">
                       <span className="text-white text-2xl font-extrabold drop-shadow-md">Comfort</span>
                     </div>
                   </div>
-                  <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)]">
-                    <picture>
+                  <div className="absolute inset-0 backface-hidden rotate-y-180 rounded-2xl overflow-hidden bg-gray-800">
+                    <picture className="contents">
                       <source type="image/webp" srcSet="/images/priority-comfort.webp" />
                       <img
                         src="/images/priority-comfort.jpg"
@@ -266,21 +271,22 @@ const Home = () => {
                         loading="lazy"
                         decoding="async"
                         fetchpriority="low"
-                        className="w-full h-full object-cover [transform:scaleX(-1)] group-hover:brightness-125"
+                        className="w-full h-full object-cover transform -scale-x-100 group-hover:brightness-125 backface-hidden"
                       />
                     </picture>
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                    <div className="absolute left-4 bottom-4 right-4">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none" />
+                    <div className="absolute left-4 bottom-4 right-4 pointer-events-none">
                       <p className="text-white text-sm opacity-90">Nyaman dipakai seharian berkat bantalan empuk dan bahan breathable.</p>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div className="group relative rounded-2xl overflow-hidden shadow-xl transition-all duration-300 hover:scale-[1.03] hover:shadow-2xl" style={{ animation: benefitsVisible ? 'fade-in-left 700ms both' : 'none', animationDelay: '120ms', perspective: '1000px' }}>
-                <div className="relative w-full h-56 sm:h-64 transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
-                  <div className="absolute inset-0 [backface-visibility:hidden]">
-                    <picture>
+              {/* Card 2: Style */}
+              <div className="group relative rounded-2xl shadow-xl transition-all duration-300 hover:scale-[1.03] hover:shadow-2xl perspective-1000" style={{ animation: benefitsVisible ? 'fade-in-left 700ms both' : 'none', animationDelay: '120ms' }}>
+                <div className="relative w-full h-56 sm:h-64 transition-transform duration-500 preserve-3d group-hover:rotate-y-180 will-change-transform">
+                  <div className="absolute inset-0 backface-hidden rounded-2xl overflow-hidden bg-gray-200">
+                    <picture className="contents">
                       <source type="image/webp" srcSet="/images/priority-stylish.webp" />
                       <img
                         src="/images/priority-stylish.jpg"
@@ -288,16 +294,16 @@ const Home = () => {
                         loading="lazy"
                         decoding="async"
                         fetchpriority="low"
-                        className="w-full h-full object-cover transition-all duration-300 group-hover:brightness-125"
+                        className="w-full h-full object-cover transition-all duration-300 group-hover:brightness-125 backface-hidden"
                       />
                     </picture>
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent group-hover:from-black/10" />
-                    <div className="absolute left-4 bottom-4">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent group-hover:from-black/10 pointer-events-none" />
+                    <div className="absolute left-4 bottom-4 pointer-events-none">
                       <span className="text-white text-2xl font-extrabold drop-shadow-md">Style</span>
                     </div>
                   </div>
-                  <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)]">
-                    <picture>
+                  <div className="absolute inset-0 backface-hidden rotate-y-180 rounded-2xl overflow-hidden bg-gray-800">
+                    <picture className="contents">
                       <source type="image/webp" srcSet="/images/priority-stylish.webp" />
                       <img
                         src="/images/priority-stylish.jpg"
@@ -305,21 +311,22 @@ const Home = () => {
                         loading="lazy"
                         decoding="async"
                         fetchpriority="low"
-                        className="w-full h-full object-cover [transform:scaleX(-1)] group-hover:brightness-125"
+                        className="w-full h-full object-cover transform -scale-x-100 group-hover:brightness-125 backface-hidden"
                       />
                     </picture>
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                    <div className="absolute left-4 bottom-4 right-4">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none" />
+                    <div className="absolute left-4 bottom-4 right-4 pointer-events-none">
                       <p className="text-white text-sm opacity-90">Gaya modern yang meningkatkan kepercayaan diri dan mudah dipadu.</p>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div className="group relative rounded-2xl overflow-hidden shadow-xl transition-all duration-300 hover:scale-[1.03] hover:shadow-2xl" style={{ animation: benefitsVisible ? 'fade-in-left 700ms both' : 'none', animationDelay: '240ms', perspective: '1000px' }}>
-                <div className="relative w-full h-56 sm:h-64 transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
-                  <div className="absolute inset-0 [backface-visibility:hidden]">
-                    <picture>
+              {/* Card 3: Performance */}
+              <div className="group relative rounded-2xl shadow-xl transition-all duration-300 hover:scale-[1.03] hover:shadow-2xl perspective-1000" style={{ animation: benefitsVisible ? 'fade-in-left 700ms both' : 'none', animationDelay: '240ms' }}>
+                <div className="relative w-full h-56 sm:h-64 transition-transform duration-500 preserve-3d group-hover:rotate-y-180 will-change-transform">
+                  <div className="absolute inset-0 backface-hidden rounded-2xl overflow-hidden bg-gray-200">
+                    <picture className="contents">
                       <source type="image/webp" srcSet="/images/priority-affordable.webp" />
                       <img
                         src="/images/priority-affordable.jpg"
@@ -327,16 +334,16 @@ const Home = () => {
                         loading="lazy"
                         decoding="async"
                         fetchpriority="low"
-                        className="w-full h-full object-cover transition-all duration-300 group-hover:brightness-125"
+                        className="w-full h-full object-cover transition-all duration-300 group-hover:brightness-125 backface-hidden"
                       />
                     </picture>
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent group-hover:from-black/10" />
-                    <div className="absolute left-4 bottom-4">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent group-hover:from-black/10 pointer-events-none" />
+                    <div className="absolute left-4 bottom-4 pointer-events-none">
                       <span className="text-white text-2xl font-extrabold drop-shadow-md">Performance</span>
                     </div>
                   </div>
-                  <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)]">
-                    <picture>
+                  <div className="absolute inset-0 backface-hidden rotate-y-180 rounded-2xl overflow-hidden bg-gray-800">
+                    <picture className="contents">
                       <source type="image/webp" srcSet="/images/priority-affordable.webp" />
                       <img
                         src="/images/priority-affordable.jpg"
@@ -344,11 +351,11 @@ const Home = () => {
                         loading="lazy"
                         decoding="async"
                         fetchpriority="low"
-                        className="w-full h-full object-cover [transform:scaleX(-1)] group-hover:brightness-125"
+                        className="w-full h-full object-cover transform -scale-x-100 group-hover:brightness-125 backface-hidden"
                       />
                     </picture>
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                    <div className="absolute left-4 bottom-4 right-4">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none" />
+                    <div className="absolute left-4 bottom-4 right-4 pointer-events-none">
                       <p className="text-white text-sm opacity-90">Performa tinggi dengan traksi mantap dan respons cepat saat bergerak.</p>
                     </div>
                   </div>

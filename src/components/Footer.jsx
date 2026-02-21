@@ -33,8 +33,8 @@ const Footer = () => {
   };
 
   return (
-    <footer className="mt-24 border-t border-gray-200 bg-white">
-      <div className="container mx-auto px-4 py-12">
+    <footer className="mt-16 md:mt-24 border-t border-gray-200 bg-white">
+      <div className="container py-8 md:py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="space-y-4">
             <Link to="/" className="text-2xl font-extrabold text-primary tracking-tight">StepUp <span className="text-dark">Studio</span></Link>

@@ -53,7 +53,7 @@ const ProductDetail = () => {
 
   return (
     <div className="min-h-screen pt-20 md:pt-24 pb-12 bg-white transition-colors duration-300">
-      <div className="container mx-auto px-4">
+      <div className="container">
         
         {/* Breadcrumb / Back */}
         <button 
@@ -118,11 +118,11 @@ const ProductDetail = () => {
               </div>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-dark mb-4 leading-tight">
+            <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-dark mb-3 sm:mb-4 leading-tight">
               {product.name}
             </h1>
 
-            <p className="text-2xl sm:text-3xl font-bold text-primary mb-6 sm:mb-8">
+            <p className="text-xl sm:text-3xl font-bold text-primary mb-4 sm:mb-8">
               Rp {product.price.toLocaleString()}
             </p>
 
@@ -146,12 +146,12 @@ const ProductDetail = () => {
                 <span className="font-bold text-dark">Select Size (EU)</span>
                 <button className="text-primary text-sm hover:underline">Size Guide</button>
               </div>
-              <div className="flex flex-wrap gap-2 sm:gap-3">
+              <div className="flex flex-wrap gap-3">
                 {sizes.map(size => (
                   <button
                     key={size}
                     onClick={() => setSelectedSize(size)}
-                    className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl border-2 flex items-center justify-center font-bold text-base sm:text-lg transition-all
+                    className={`w-12 h-12 rounded-xl border-2 flex items-center justify-center font-bold text-lg transition-all
                       ${selectedSize === size 
                         ? 'border-primary bg-primary text-white shadow-lg shadow-primary/30 scale-110' 
                         : 'border-gray-200 text-gray-600 hover:border-primary hover:text-primary'
