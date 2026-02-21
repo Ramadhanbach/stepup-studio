@@ -30,12 +30,17 @@ const ProductCard = ({ product, onOpenModal, index = 0 }) => {
     >
       {/* Image */}
       <div className="relative aspect-square overflow-hidden bg-gray-100">
-        <img 
-          src={product.image} 
-          alt={product.name} 
-          loading="lazy"
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-        />
+        <picture>
+          <source type="image/webp" srcSet={product.image.replace(/\.jpg$/i, '.webp').replace(/\.jpeg$/i, '.webp').replace(/\.png$/i, '.webp')} />
+          <img 
+            src={product.image} 
+            alt={product.name} 
+            loading="lazy"
+            decoding="async"
+            fetchpriority="low"
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          />
+        </picture>
         
         
         {/* Quick Actions Overlay */}

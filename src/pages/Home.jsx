@@ -132,15 +132,20 @@ const Home = () => {
             </a>
           </div>
           
-          <div className="w-full md:w-1/2 relative">
-             <img 
-               src="/images/hero-shoe.jpg" 
-               alt="Hero Shoe" 
-               loading="lazy"
-               className="w-full max-w-md sm:max-w-lg mx-auto drop-shadow-2xl rotate-[-8deg] hover:rotate-0 transition-transform duration-700"
-               ref={heroImgRef}
-               style={{ animation: heroVisible ? 'fade-in-right 800ms both' : 'none' }}
-             />
+           <div className="w-full md:w-1/2 relative">
+             <picture>
+               <source type="image/webp" srcSet="/images/hero-shoe.webp" />
+               <img 
+                 src="/images/hero-shoe.jpg" 
+                 alt="Hero Shoe" 
+                 loading="eager"
+                 decoding="async"
+                 fetchpriority="high"
+                 className="w-full max-w-md sm:max-w-lg mx-auto drop-shadow-2xl rotate-[-8deg] hover:rotate-0 transition-transform duration-700"
+                 ref={heroImgRef}
+                 style={{ animation: heroVisible ? 'fade-in-right 800ms both' : 'none' }}
+               />
+             </picture>
           </div>
         </div>
       </section>
@@ -236,24 +241,34 @@ const Home = () => {
               <div className="group relative rounded-2xl overflow-hidden shadow-xl transition-all duration-300 hover:scale-[1.03] hover:shadow-2xl" style={{ animation: benefitsVisible ? 'fade-in-left 700ms both' : 'none', animationDelay: '0ms', perspective: '1000px' }}>
                 <div className="relative w-full h-56 sm:h-64 transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
                   <div className="absolute inset-0 [backface-visibility:hidden]">
-                    <img
-                      src="/images/priority-comfort.jpg"
-                      alt="Comfort Shoes"
-                      loading="lazy"
-                      className="w-full h-full object-cover transition-all duration-300 group-hover:brightness-125"
-                    />
+                    <picture>
+                      <source type="image/webp" srcSet="/images/priority-comfort.webp" />
+                      <img
+                        src="/images/priority-comfort.jpg"
+                        alt="Comfort Shoes"
+                        loading="lazy"
+                        decoding="async"
+                        fetchpriority="low"
+                        className="w-full h-full object-cover transition-all duration-300 group-hover:brightness-125"
+                      />
+                    </picture>
                     <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent group-hover:from-black/10" />
                     <div className="absolute left-4 bottom-4">
                       <span className="text-white text-2xl font-extrabold drop-shadow-md">Comfort</span>
                     </div>
                   </div>
                   <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)]">
-                    <img
-                      src="/images/priority-comfort.jpg"
-                      alt="Comfort Shoes Back"
-                      loading="lazy"
-                      className="w-full h-full object-cover [transform:scaleX(-1)] group-hover:brightness-125"
-                    />
+                    <picture>
+                      <source type="image/webp" srcSet="/images/priority-comfort.webp" />
+                      <img
+                        src="/images/priority-comfort.jpg"
+                        alt="Comfort Shoes Back"
+                        loading="lazy"
+                        decoding="async"
+                        fetchpriority="low"
+                        className="w-full h-full object-cover [transform:scaleX(-1)] group-hover:brightness-125"
+                      />
+                    </picture>
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                     <div className="absolute left-4 bottom-4 right-4">
                       <p className="text-white text-sm opacity-90">Nyaman dipakai seharian berkat bantalan empuk dan bahan breathable.</p>
@@ -265,24 +280,34 @@ const Home = () => {
               <div className="group relative rounded-2xl overflow-hidden shadow-xl transition-all duration-300 hover:scale-[1.03] hover:shadow-2xl" style={{ animation: benefitsVisible ? 'fade-in-left 700ms both' : 'none', animationDelay: '120ms', perspective: '1000px' }}>
                 <div className="relative w-full h-56 sm:h-64 transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
                   <div className="absolute inset-0 [backface-visibility:hidden]">
-                    <img
-                      src="/images/priority-stylish.jpg"
-                      alt="Style Shoes"
-                      loading="lazy"
-                      className="w-full h-full object-cover transition-all duration-300 group-hover:brightness-125"
-                    />
+                    <picture>
+                      <source type="image/webp" srcSet="/images/priority-stylish.webp" />
+                      <img
+                        src="/images/priority-stylish.jpg"
+                        alt="Style Shoes"
+                        loading="lazy"
+                        decoding="async"
+                        fetchpriority="low"
+                        className="w-full h-full object-cover transition-all duration-300 group-hover:brightness-125"
+                      />
+                    </picture>
                     <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent group-hover:from-black/10" />
                     <div className="absolute left-4 bottom-4">
                       <span className="text-white text-2xl font-extrabold drop-shadow-md">Style</span>
                     </div>
                   </div>
                   <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)]">
-                    <img
-                      src="/images/priority-stylish.jpg"
-                      alt="Style Shoes Back"
-                      loading="lazy"
-                      className="w-full h-full object-cover [transform:scaleX(-1)] group-hover:brightness-125"
-                    />
+                    <picture>
+                      <source type="image/webp" srcSet="/images/priority-stylish.webp" />
+                      <img
+                        src="/images/priority-stylish.jpg"
+                        alt="Style Shoes Back"
+                        loading="lazy"
+                        decoding="async"
+                        fetchpriority="low"
+                        className="w-full h-full object-cover [transform:scaleX(-1)] group-hover:brightness-125"
+                      />
+                    </picture>
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                     <div className="absolute left-4 bottom-4 right-4">
                       <p className="text-white text-sm opacity-90">Gaya modern yang meningkatkan kepercayaan diri dan mudah dipadu.</p>
@@ -294,24 +319,34 @@ const Home = () => {
               <div className="group relative rounded-2xl overflow-hidden shadow-xl transition-all duration-300 hover:scale-[1.03] hover:shadow-2xl" style={{ animation: benefitsVisible ? 'fade-in-left 700ms both' : 'none', animationDelay: '240ms', perspective: '1000px' }}>
                 <div className="relative w-full h-56 sm:h-64 transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
                   <div className="absolute inset-0 [backface-visibility:hidden]">
-                    <img
-                      src="/images/priority-affordable.jpg"
-                      alt="Performance Shoes"
-                      loading="lazy"
-                      className="w-full h-full object-cover transition-all duration-300 group-hover:brightness-125"
-                    />
+                    <picture>
+                      <source type="image/webp" srcSet="/images/priority-affordable.webp" />
+                      <img
+                        src="/images/priority-affordable.jpg"
+                        alt="Performance Shoes"
+                        loading="lazy"
+                        decoding="async"
+                        fetchpriority="low"
+                        className="w-full h-full object-cover transition-all duration-300 group-hover:brightness-125"
+                      />
+                    </picture>
                     <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent group-hover:from-black/10" />
                     <div className="absolute left-4 bottom-4">
                       <span className="text-white text-2xl font-extrabold drop-shadow-md">Performance</span>
                     </div>
                   </div>
                   <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)]">
-                    <img
-                      src="/images/priority-affordable.jpg"
-                      alt="Performance Shoes Back"
-                      loading="lazy"
-                      className="w-full h-full object-cover [transform:scaleX(-1)] group-hover:brightness-125"
-                    />
+                    <picture>
+                      <source type="image/webp" srcSet="/images/priority-affordable.webp" />
+                      <img
+                        src="/images/priority-affordable.jpg"
+                        alt="Performance Shoes Back"
+                        loading="lazy"
+                        decoding="async"
+                        fetchpriority="low"
+                        className="w-full h-full object-cover [transform:scaleX(-1)] group-hover:brightness-125"
+                      />
+                    </picture>
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                     <div className="absolute left-4 bottom-4 right-4">
                       <p className="text-white text-sm opacity-90">Performa tinggi dengan traksi mantap dan respons cepat saat bergerak.</p>

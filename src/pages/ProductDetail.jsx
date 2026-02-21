@@ -68,12 +68,17 @@ const ProductDetail = () => {
           {/* Gallery Section */}
           <div className="w-full lg:w-1/2 space-y-3 sm:space-y-4">
             <div className="aspect-square bg-gray-100 rounded-2xl overflow-hidden relative group">
-              <img 
-                src={activeImage} 
-                alt={product.name} 
-                loading="lazy"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              />
+              <picture>
+                <source type="image/webp" srcSet={activeImage.replace(/\.jpg$/i, '.webp').replace(/\.jpeg$/i, '.webp').replace(/\.png$/i, '.webp')} />
+                <img 
+                  src={activeImage} 
+                  alt={product.name} 
+                  loading="lazy"
+                  decoding="async"
+                  fetchpriority="low"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+              </picture>
               <button
                 onClick={() => toggleFavorite(product.id, product.name)}
                 aria-label="Toggle Wishlist"
@@ -91,7 +96,10 @@ const ProductDetail = () => {
                   className={`w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-xl overflow-hidden border-2 transition-all flex-shrink-0
                     ${activeImage === img ? 'border-primary' : 'border-transparent hover:border-gray-300'}`}
                 >
-                  <img src={img} alt={`Thumbnail ${index}`} loading="lazy" className="w-full h-full object-cover" />
+                  <picture>
+                    <source type="image/webp" srcSet={img.replace(/\.jpg$/i, '.webp').replace(/\.jpeg$/i, '.webp').replace(/\.png$/i, '.webp')} />
+                    <img src={img} alt={`Thumbnail ${index}`} loading="lazy" decoding="async" fetchpriority="low" className="w-full h-full object-cover" />
+                  </picture>
                 </button>
               ))}
             </div>
