@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect, useRef } from 'react';
 import { products } from '../data/products';
 import ProductCard from '../components/ProductCard';
 import ProductModal from '../components/ProductModal';
+
 import { Search, Filter, ArrowDown } from 'lucide-react';
 
 const Home = () => {
@@ -32,6 +33,120 @@ const Home = () => {
     setIsModalOpen(false);
     setModalProduct(null);
   };
+
+  const isDragging = useRef(false);
+  const startX = useRef(0);
+  const scrollLeft = useRef(0);
+  const wasDragging = useRef(false);
+
+  const handleMouseDown = (e) => {
+    isDragging.current = true;
+    wasDragging.current = false;
+    startX.current = e.pageX - scrollerRef.current.offsetLeft;
+    scrollLeft.current = scrollerRef.current.scrollLeft;
+  };
+
+  const handleMouseLeave = () => {
+    isDragging.current = false;
+  };
+
+  const handleMouseUp = () => {
+    isDragging.current = false;
+    // Delay resetting wasDragging slightly to allow click handler to check it
+    setTimeout(() => {
+      wasDragging.current = false;
+    }, 50);
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollerRef.current.offsetLeft;
+    const walk = (x - startX.current) * 2;
+    if (Math.abs(walk) > 5) {
+      wasDragging.current = true;
+    }
+    scrollerRef.current.scrollLeft = scrollLeft.current - walk;
+  };
+
+  const handleCaptureClick = (e) => {
+    if (wasDragging.current) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  };
+
+  // Custom Scrollbar Drag Logic
+  const isScrollbarDragging = useRef(false);
+  const scrollbarStartX = useRef(0);
+  const scrollbarStartLeft = useRef(0);
+
+  const handleScrollbarMouseDown = (e) => {
+    e.stopPropagation();
+    isScrollbarDragging.current = true;
+    scrollbarStartX.current = e.pageX;
+    scrollbarStartLeft.current = scrollerRef.current.scrollLeft;
+    document.body.style.userSelect = 'none';
+  };
+
+  const handleScrollbarMouseMove = (e) => {
+    if (!isScrollbarDragging.current || !scrollerRef.current) return;
+    e.preventDefault();
+    
+    const trackWidth = scrollerRef.current.clientWidth;
+    const scrollWidth = scrollerRef.current.scrollWidth;
+    const maxScroll = scrollWidth - trackWidth;
+    
+    // Calculate movement ratio
+    // The thumb moves a percentage of the track width
+    // We need to convert pixel movement of mouse to scroll position
+    // Movement ratio = maxScroll / trackWidth (roughly)
+    // Actually, it's easier to use the percentage logic from the indicator
+    
+    const deltaX = e.pageX - scrollbarStartX.current;
+    const percentageMove = (deltaX / trackWidth) * 100;
+    
+    // Convert percentage to scroll pixels
+    // If thumb moves 10%, scroll moves 10% of maxScroll?
+    // Indicator width is (clientWidth / scrollWidth) * 100
+    // Indicator left is (scrollLeft / maxScroll) * (100 - width)
+    
+    const indicatorWidthPct = (trackWidth / scrollWidth) * 100;
+    const availableTrackPct = 100 - indicatorWidthPct;
+    
+    if (availableTrackPct <= 0) return;
+
+    const scrollDelta = (deltaX / trackWidth) * maxScroll * (100 / availableTrackPct);
+    
+    // Simplified: deltaX pixels on track corresponds to scroll change
+    // Let's use a simpler approximation:
+    // deltaX / trackWidth = deltaScroll / scrollWidth (wrong)
+    // The visual indicator moves `availableTrackWidth` pixels for `maxScroll` content
+    // availableTrackWidth = trackWidth - thumbWidth
+    // thumbWidth = trackWidth * (trackWidth / scrollWidth)
+    
+    const thumbWidth = trackWidth * (trackWidth / scrollWidth);
+    const availableSpace = trackWidth - thumbWidth;
+    
+    if (availableSpace > 0) {
+      const scrollRatio = maxScroll / availableSpace;
+      scrollerRef.current.scrollLeft = scrollbarStartLeft.current + (deltaX * scrollRatio);
+    }
+  };
+
+  const handleScrollbarMouseUp = () => {
+    isScrollbarDragging.current = false;
+    document.body.style.userSelect = '';
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousemove', handleScrollbarMouseMove);
+    document.addEventListener('mouseup', handleScrollbarMouseUp);
+    return () => {
+      document.removeEventListener('mousemove', handleScrollbarMouseMove);
+      document.removeEventListener('mouseup', handleScrollbarMouseUp);
+    };
+  }, []);
 
   const handleShopNowClick = (e) => {
     e.preventDefault();
@@ -162,12 +277,18 @@ const Home = () => {
           
           <div className="mb-8 md:mb-12">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6">
-              <div className="text-center md:text-left w-full md:w-auto">
+              <div 
+                className="text-center md:text-left w-full md:w-auto"
+                style={{ animation: productsVisible ? 'fade-in-right 800ms both' : 'none' }}
+              >
                 <h2 className="text-3xl sm:text-4xl font-bold text-dark">Our Collection</h2>
-                <div className="h-1 w-20 bg-dark rounded-full mt-1 mx-auto md:mx-0" />
+                <div className="h-1 w-20 bg-primary rounded-full mt-1 mx-auto md:mx-0" />
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+              <div 
+                className="flex flex-col sm:flex-row gap-3 w-full md:w-auto"
+                style={{ animation: productsVisible ? 'fade-in-right 800ms both' : 'none', animationDelay: '200ms' }}
+              >
                 <div className="relative group w-full sm:w-auto">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary transition-colors" size={20} />
                   <input 
@@ -200,7 +321,16 @@ const Home = () => {
 
           {filteredProducts.length > 0 ? (
             <>
-              <div ref={scrollerRef} className="overflow-x-auto no-scrollbar -mx-4 px-4">
+              <div 
+                ref={scrollerRef} 
+                className="overflow-x-auto no-scrollbar -mx-4 px-4 cursor-grab active:cursor-grabbing"
+                onMouseDown={handleMouseDown}
+                onMouseLeave={handleMouseLeave}
+                onMouseUp={handleMouseUp}
+                onMouseMove={handleMouseMove}
+                onClickCapture={handleCaptureClick}
+                style={{ animation: productsVisible ? 'fade-in-up 800ms both' : 'none', animationDelay: '400ms' }}
+              >
                 <div className="flex gap-6 snap-x snap-mandatory">
                   {filteredProducts.map((product, idx) => (
                     <div key={product.id} className="snap-start flex-shrink-0 w-64 sm:w-72 lg:w-80">
@@ -214,11 +344,23 @@ const Home = () => {
                 </div>
               </div>
               <div className="mt-6 -mx-4 px-4">
-                <div className="relative h-[5px]">
-                  <div className="absolute inset-0 bg-dark/20 rounded-full" />
+                <div 
+                  className="relative h-[8px] bg-gray-100 rounded-full cursor-pointer hover:h-[10px] transition-all duration-300"
+                  onClick={(e) => {
+                    if (isScrollbarDragging.current) return;
+                    const rect = e.currentTarget.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const trackWidth = rect.width;
+                    const clickRatio = x / trackWidth;
+                    const maxScroll = scrollerRef.current.scrollWidth - scrollerRef.current.clientWidth;
+                    scrollerRef.current.scrollTo({ left: maxScroll * clickRatio, behavior: 'smooth' });
+                  }}
+                >
+                  <div className="absolute inset-0 bg-dark/10 rounded-full" />
                   <div
-                    className="absolute top-0 h-full bg-dark rounded-full"
+                    className="absolute top-0 h-full bg-dark rounded-full cursor-grab active:cursor-grabbing hover:bg-black transition-colors"
                     style={{ width: `${scrollIndicator.width}%`, left: `${scrollIndicator.left}%` }}
+                    onMouseDown={handleScrollbarMouseDown}
                   />
                 </div>
               </div>
@@ -239,7 +381,7 @@ const Home = () => {
           <div className="mt-16">
             <div className="mb-6">
               <h3 className="text-3xl sm:text-4xl font-bold text-dark">Our Priority</h3>
-              <div className="h-1 w-16 bg-dark rounded-full mt-1" />
+              <div className="h-1 w-20 bg-primary rounded-full mt-1" />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" ref={benefitsRef}>
               {/* Card 1: Comfort */}
@@ -365,6 +507,8 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+
 
       {/* Modal */}
       {isModalOpen && (
